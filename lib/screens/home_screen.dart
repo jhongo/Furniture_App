@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mueble_app/screens/screens.dart';
+import 'package:mueble_app/services/menu_opc_preferences.dart';
 import 'package:mueble_app/services/navbar_service.dart';
 import 'package:mueble_app/services/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -11,13 +12,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navBar = Provider.of<NavBarService>(context);
+    final opcMenu = Provider.of<MenuOpcPreferences>(context);
     return Scaffold(
       body: Stack(
         children: [
           PageView(
-            controller: navBar.pageControllerGet,
+            controller: opcMenu.pageControllerGet,
             physics: NeverScrollableScrollPhysics(),
-          children:const [
+          children: [
             ProductScreen(),
             SaveScreen(),
             NotificationScreen(),
@@ -68,12 +70,13 @@ class IconItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final opcIndex = Provider.of<NavBarService>(context);
+    final opcMenu = Provider.of<MenuOpcPreferences>(context);
     return GestureDetector(
       onTap: () {
-        opcIndex.opcIndexSet = index;
+        opcMenu.optMenuSet = index;
       },
       child: Container(
-        child: (opcIndex.opcIndexGet == index)
+        child: (opcMenu.optMenuGet == index)
         ? Icon(  icon,size: 25, color: Colors.black, )
         : Icon(  icon,size: 23, color: Color(0xFF4a4e69), ),
       ),

@@ -5,9 +5,7 @@ class Preferences {
 
   static late SharedPreferences _prefs;
   static bool _isDarkMode = false;
-  static int _isSelectCategory = 1;
 
-  static int _optMenu = 0;
 
 /// `init()` is a function that returns a Future
   static Future init() async{
@@ -23,15 +21,6 @@ class Preferences {
     _prefs.setBool('isDarkMode', value);
   }
 
-/// This is a getter and setter for the optMenu variable.
-   int get optMenuGet{
-    return _prefs.getInt('optMenu') ?? _optMenu;
-  }
-   set optMenuSet(int value){
-    _optMenu = value;
-    _prefs.setInt('optMenu', value);
-    
-  }
 
   
 }

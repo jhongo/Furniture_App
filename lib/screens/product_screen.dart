@@ -29,6 +29,7 @@ class ProductScreen extends StatelessWidget {
 
 
   }
+  
 
 
   const ProductScreen({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class ProductScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: GridView.builder(
+                child: (opcCa.opcCategoryGet == mueble_data.map((e) => print(e.category.contains('sofa')) ) ) ? GridView.builder(
                   physics:const BouncingScrollPhysics(),
                   itemCount: mueble_data.length,
                   gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
@@ -59,15 +60,23 @@ class ProductScreen extends StatelessWidget {
                   itemBuilder:(context,int index){
                     
                     final dataMuebles = mueble_data[index];
+                    final categoryFurniture = dataMuebles.category;
                     return _CardItemProduct(
                       dataMueble: dataMuebles,
                       onTap:(){
                         _onMueblePressed(dataMuebles, context);
                       },
                       );
+                      
+                      
+                      
                   }
                   
-                  ),
+                  )
+                  : 
+                  Center(
+                    child: Text('No hay productos'),
+                  )
             )),
 
           ],
@@ -148,7 +157,7 @@ class _HeaderProduct extends StatelessWidget {
         children: [
           Row(
             children:const [
-              Text('FurnitureCo.', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+              Text('Mi App.', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
               Spacer(),
               Icon(Icons.shopping_cart_outlined,size: 25,)
             ],
@@ -199,6 +208,7 @@ class _ItemCategory extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         opcCategory.opcCategorySet = category;
+        print(opcCategory.opcCategoryGet);
         
       },
       child: Container(
