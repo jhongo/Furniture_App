@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:mueble_app/services/unit_service.dart';
-import 'package:provider/provider.dart';
 
 class MuebleModelData{ 
   final String name;
@@ -57,7 +54,7 @@ final mueble_data = <MuebleModelData>[
     qualification: 4.3, 
     unit: 1, 
     description: 'Minimal Bed is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. Whit 3 different colors you can easly select the best match for you home', 
-    category: 'sofa',
+    category: 'chair',
     colors:[
       0xFF514e4e,
       0xFF34a4a5,

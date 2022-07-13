@@ -30,13 +30,14 @@ class ProductScreen extends StatelessWidget {
 
   }
   
-
-
   const ProductScreen({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
     final opcCa = Provider.of<CategoryService>(context);
+    final dataFilterMueble = mueble_data.where((mueble) => mueble.category.startsWith( opcCa.opcCategoryGet )); 
+
+
     return Scaffold(
       backgroundColor: Color(0xFFf6f6f6),
       body: SafeArea(
@@ -46,36 +47,30 @@ class ProductScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: (opcCa.opcCategoryGet == mueble_data.map((e) => print(e.category.contains('sofa')) ) ) ? GridView.builder(
+                child:  GridView.builder(
                   physics:const BouncingScrollPhysics(),
-                  itemCount: mueble_data.length,
+                  itemCount: dataFilterMueble.length,
                   gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 20.0,
                     crossAxisSpacing: 20.0,
                     childAspectRatio: 0.75
 
-
                     ) , 
                   itemBuilder:(context,int index){
-                    
+
                     final dataMuebles = mueble_data[index];
-                    final categoryFurniture = dataMuebles.category;
-                    return _CardItemProduct(
+                    
+                    return  _CardItemProduct(
                       dataMueble: dataMuebles,
                       onTap:(){
                         _onMueblePressed(dataMuebles, context);
-                      },
-                      );
+                      });
                       
                       
                       
                   }
                   
-                  )
-                  : 
-                  Center(
-                    child: Text('No hay productos'),
                   )
             )),
 
@@ -85,7 +80,7 @@ class ProductScreen extends StatelessWidget {
         )
     );
   }
-}
+} 
 
 class _CardItemProduct extends StatelessWidget {
   
