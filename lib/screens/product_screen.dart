@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mueble_app/models/categories_model.dart';
 import 'package:mueble_app/models/mueble_model.dart';
 import 'package:mueble_app/screens/screens.dart';
 import 'package:mueble_app/services/category_service.dart';
@@ -31,12 +32,10 @@ class ProductScreen extends StatelessWidget {
   }
   
   const ProductScreen({Key? key}) : super(key: key);
-  
   @override
   Widget build(BuildContext context) {
     final opcCa = Provider.of<CategoryService>(context);
     final dataFilterMueble = mueble_data.where((mueble) => mueble.category.startsWith( opcCa.opcCategoryGet )); 
-
 
     return Scaffold(
       backgroundColor: Color(0xFFf6f6f6),
@@ -67,8 +66,6 @@ class ProductScreen extends StatelessWidget {
                         _onMueblePressed(dataMuebles, context);
                       });
                       
-                      
-                      
                   }
                   
                   )
@@ -90,7 +87,6 @@ class _CardItemProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final opcCa = Provider.of<CategoryService>(context);
     return  InkWell(
       onTap:onTap,
       child: Container(
@@ -152,7 +148,7 @@ class _HeaderProduct extends StatelessWidget {
         children: [
           Row(
             children:const [
-              Text('Mi App.', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+              Text('Furniture Co.', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
               Spacer(),
               Icon(Icons.shopping_cart_outlined,size: 25,)
             ],
@@ -169,53 +165,60 @@ class _HeaderProduct extends StatelessWidget {
 }
 
 class _CategoryItems extends StatelessWidget {
-  const _CategoryItems({Key? key}) : super(key: key);
+  const _CategoryItems({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final h = MediaQuery.of(context).size.height;
-    final w = MediaQuery.of(context).size.width;
+    final data_category = Provider.of<CategoryService>(context).data_category; 
     return Container(
-      width: w,
-      height: h* 0.08,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children:const [
-          _ItemCategory(icon: Icons.star, category: 'popular',),
-          _ItemCategory(icon: Icons.chair_alt, category: 'chair',),
-          _ItemCategory(icon: Icons.table_restaurant_rounded, category:'table',),
-          _ItemCategory(icon: Icons.chair_rounded, category: 'sofa',),
-          _ItemCategory(icon: Icons.bed_sharp, category: 'bed',),
-        ],
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+      itemCount: data_category.length,
+      itemBuilder:(context, index) {
+        final categoria = data_category[index];
+        return _ItemCategory(
+          categorie: categoria,
+          );
+      }, 
+      
       ),
     );
   }
 }
 
+
+
 class _ItemCategory extends StatelessWidget {
-  final IconData icon;
-  final String category;
-  const _ItemCategory({Key? key, required this.icon, required this.category, }) : super(key: key);
+
+  final Categories categorie;
+  const _ItemCategory({Key? key, required this.categorie, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final opcCategory = Provider.of<CategoryService>(context);
     return GestureDetector(
       onTap: () {
-        opcCategory.opcCategorySet = category;
-        print(opcCategory.opcCategoryGet);
+        final opcCategory = Provider.of<CategoryService>(context,listen: false);
+        opcCategory.opcCategorySet = categorie.category;
+          
         
       },
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
         height: 50,
         width: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: (opcCategory.opcCategoryGet == category) ? Colors.black : Color(0xFFf8f8f8)
+          color: (opcCategory.opcCategoryGet == categorie.category) ? Colors.black : Color(0xFFf8f8f8)
         ),
-        child: (opcCategory.opcCategoryGet == category)
-        ? Icon(icon, size: 30, color: Colors.white,)
-        : Icon(icon, size: 25, color: Color(0xFFadb5bd),)
+        child: (opcCategory.opcCategoryGet == categorie.category)
+        ? Icon(categorie.icon, size: 30, color: Colors.white,)
+        : Icon(categorie.icon, size: 25, color: Color(0xFFadb5bd),)
       ),
     );
   }

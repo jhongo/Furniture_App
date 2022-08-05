@@ -1,12 +1,9 @@
 
 class MuebleModelData{ 
-  final String name;
-  final double price;
+  final String name,description,category;
+  final double price,qualification;
   final List<String> img;
-  final double qualification;
   final int unit;
-  final String description;
-  final String category;
   final List<int> colors;
 
   MuebleModelData({
@@ -40,8 +37,7 @@ final mueble_data = <MuebleModelData>[
       0xFF242f48,
       0xFF580e38,
       0xFF149260,
-    ]
-    ),
+    ]),
 
   MuebleModelData(
     name:'Modern Style Sofa' , 
@@ -59,8 +55,7 @@ final mueble_data = <MuebleModelData>[
       0xFF514e4e,
       0xFF34a4a5,
       0xFF287649,
-    ]
-    ),
+    ]),
 
   MuebleModelData(
     name:'Royal Palm Sofa' , 
@@ -78,8 +73,7 @@ final mueble_data = <MuebleModelData>[
       0xFF8c9a97,
       0xFF8586a4,
       0xFFafad79,
-    ]
-    ),
+    ]),
 
   MuebleModelData(
     name:'Leatherette Sofa' , 
@@ -97,8 +91,7 @@ final mueble_data = <MuebleModelData>[
       0xFF767374,
       0xFF274765,
       0xFF7a623f,
-    ]
-    ),
+    ]),
 
   MuebleModelData(
     name:'Dream Ded' , 
@@ -116,8 +109,7 @@ final mueble_data = <MuebleModelData>[
       0xFF84624b,
       0xFF2ea5b7,
       0xFF4c943c,
-    ]
-    ),
+    ]),
   MuebleModelData(
     name:'Sweet Dreams' , 
     price: 110.33,
@@ -134,6 +126,5 @@ final mueble_data = <MuebleModelData>[
       0xFF323133,
       0xFF191919,
       0xFFd1cbaa,
-    ]
-    ),
+    ]),
 ];
